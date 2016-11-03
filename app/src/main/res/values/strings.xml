@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SongSearch</string>
+    <string name="proxy_host">192.168.4.70</string>>
+    <string name="pleer_search_url_prefix"><![CDATA[http://www.pleer.com/browser-extension/search?limit=100&q=]]></string>
+    <string name="search_hint">Enter song</string>
+    <string name="search">Search</string>
+    <string name="ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="empty_song">Please enter a song to search</string>
+    <string name="network_unavailable">Network is not available. Please connect to internet.</string>
+    <string name="song_list_key">song_list</string>
+    <string name="library">Library</string>
+    <string name="library_list_key">library_list</string>
+</resources>

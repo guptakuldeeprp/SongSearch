@@ -35,38 +35,51 @@ public class SongDownloadTask extends AsyncTask<Void, Integer, Boolean> {
     @Override
     protected Boolean doInBackground(Void... voids) {
         BufferedInputStream in = null;
+        FileOutputStream outputStream = null;
         boolean success = false;
         try {
             in = new BufferedInputStream(SongSearchDownloadService.download(context, downloadInfo));
             File songFile = new File(CommonUtil.getSongDownloadDir(context), downloadInfo.getSongInfo().getFullTitle().replaceAll("\\s+","").replaceAll("[\\-\\(\\)\"]","")+".mp3");
             Log.i(TAG,"Saving song at location " + songFile);
-            FileOutputStream outputStream = new FileOutputStream(songFile);
-            byte data[] = new byte[1024];
-            int count;
-            int sumCount = 0;
 
-            while ((count = in.read(data, 0, 1024)) != -1) {
-                outputStream.write(data, 0, count);
 
-                sumCount += count;
-                publishProgress(sumCount);
-            }
-            Log.i(TAG,"song saved " + songFile);
-            downloadInfo.setFilename(songFile.getPath());
-            //ProviderUtil.saveDownloadInfo(context, downloadInfo);
-            ProviderUtil.saveDownloadInfoIfAbsent(context, downloadInfo);
-            success = true;
+                outputStream = new FileOutputStream(songFile);
+                byte data[] = new byte[1024];
+                int count;
+                int sumCount = 0;
 
-        } catch (IOException e) {
-            Log.e(TAG, e.getMessage(), e);
-        } finally {
-            if (in != null)
+                while ((count = in.read(data, 0, 1024)) != -1) {
+                    outputStream.write(data, 0, count);
+
+                    sumCount += count;
+                    publishProgress(sumCount);
+                }
+                Log.i(TAG, "song saved " + songFile);
+                downloadInfo.setFilename(songFile.getPath());
+                //ProviderUtil.saveDownloadInfo(context, downloadInfo);
+                ProviderUtil.saveDownloadInfoIfAbsent(context, downloadInfo);
+                success = true;
+            } catch (Exception e) {
+                success = false;
+                Log.e(TAG, e.getMessage(), e);
+                CommonUtil.makeToast(context, "Failed to download song");
+
+            } finally {
+                if(in != null)
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+            if(outputStream != null)
                 try {
-                    in.close();
+                    outputStream.close();
                 } catch (IOException e) {
-                    Log.e(TAG, e.getMessage(), e);
+                    e.printStackTrace();
                 }
         }
+
+
         return success;
     }
 

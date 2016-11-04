@@ -78,6 +78,7 @@ public class ProviderUtil {
             Log.i(TAG, "Song already saved, skipping");
             return 0;
         }
+        downloadInfoCursor.close();
         return saveDownloadInfo(context, downloadInfo);
 
     }
@@ -90,23 +91,27 @@ public class ProviderUtil {
             downloadInfo.setSongInfo(getSongInfo(context, downloadInfoCursor.getSonginfoId()));
             downloadInfos.add(downloadInfo);
         }
+        downloadInfoCursor.close();
         return downloadInfos;
     }
 
     public static SongInfo getSongInfo(Context context, long id) {
         SonginfoCursor songInfoCursor = new SonginfoSelection().id(id).query(context);
-
-        // Cursor songInfoCursor = context.getContentResolver().query(SonginfoColumns.CONTENT_URI, SonginfoColumns.ALL_COLUMNS, null, null, null);
-        if (songInfoCursor.moveToNext())
-            return getSongInfo(songInfoCursor);
-        else {
-            SonginfoSelection songinfoSelection = new SonginfoSelection();
-            SonginfoCursor cursor = songinfoSelection.query(context);
-            Log.i(TAG, "printing all saved song infos");
-            while (cursor.moveToNext()) {
-                System.out.println(getSongInfo(cursor));
+        try {
+            // Cursor songInfoCursor = context.getContentResolver().query(SonginfoColumns.CONTENT_URI, SonginfoColumns.ALL_COLUMNS, null, null, null);
+            if (songInfoCursor.moveToNext())
+                return getSongInfo(songInfoCursor);
+            else {
+                SonginfoSelection songinfoSelection = new SonginfoSelection();
+                SonginfoCursor cursor = songinfoSelection.query(context);
+                Log.i(TAG, "printing all saved song infos");
+                while (cursor.moveToNext()) {
+                    System.out.println(getSongInfo(cursor));
+                }
+                throw new RuntimeException("inconsistent download info and sound info");
             }
-            throw new RuntimeException("inconsistent download info and sound info");
+        } finally {
+            songInfoCursor.close();
         }
     }
 

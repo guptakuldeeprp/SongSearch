@@ -11,10 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.kuldeepgupta.songsearch.adapter.SongInfoArrayAdapter;
@@ -124,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         if (songList != null && !songList.isEmpty()) {
 
             outState.putParcelableArrayList(getString(R.string.song_list_key), (ArrayList<? extends Parcelable>) songList);
+
         }
     }
 

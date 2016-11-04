@@ -1,8 +1,11 @@
 package com.example.kuldeepgupta.songsearch.util;
 
 import android.content.Context;
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Environment;
 import android.view.Gravity;
 import android.widget.Toast;
@@ -27,7 +30,7 @@ public class CommonUtil {
     public static String cleanUrlParts(String... parts) {
 
         StringBuilder urlBuilder = new StringBuilder();
-        if(parts != null) {
+        if (parts != null) {
             for (String part : parts) {
                 urlBuilder.append(deAccent(part).replace(" ", "+").replaceAll("[!@#$%^&*(){}:\"<>?]", ""));
             }
@@ -61,6 +64,7 @@ public class CommonUtil {
         }
         return false;
     }
+
     public static File getSongDownloadDir(Context context) {
         File baseDir = null;
         if (CommonUtil.isExternalStorageWritable()) {
@@ -90,5 +94,17 @@ public class CommonUtil {
         toast.show();
     }
 
+    public static void playAudio(Context context, String filePath) throws IOException {
+//        Intent viewMediaIntent = new Intent();
+//        viewMediaIntent.setAction(android.content.Intent.ACTION_VIEW);
+//        File file = new File(filePath);
+//        viewMediaIntent.setDataAndType(Uri.fromFile(file), "audio/*");
+//        viewMediaIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        context.startActivity(viewMediaIntent);
+
+        MediaPlayer mpintro = MediaPlayer.create(context, Uri.fromFile(new File(filePath)));
+        mpintro.setLooping(true);
+        mpintro.start();
+    }
 
 }

@@ -40,6 +40,18 @@
             android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
             android:exported="false"/>
+        <service
+            android:name=".widget.SongWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"></service>
+        <receiver android:name=".widget.SongWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/song_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

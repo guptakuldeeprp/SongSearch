@@ -10,4 +10,5 @@
     <string name="song_list_key">song_list</string>
     <string name="library">Library</string>
     <string name="library_list_key">library_list</string>
+    <string name="song_filepath">song_filepath</string>
 </resources>

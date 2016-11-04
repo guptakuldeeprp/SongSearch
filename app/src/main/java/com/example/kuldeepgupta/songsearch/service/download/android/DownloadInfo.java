@@ -49,7 +49,7 @@ public class DownloadInfo implements Parcelable {
     }
 
     public void setProgressBar(ProgressBar progressBar) {
-        Log.d(TAG, "setProgressBar " + mFilename + " to " + progressBar);
+        //Log.d(TAG, "setProgressBar " + mFilename + " to " + progressBar);
         mProgressBar = progressBar;
     }
 

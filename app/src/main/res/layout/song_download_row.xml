@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/downloadFileName"
-        android:layout_toLeftOf="@+id/downloadButton" />
+        android:layout_toLeftOf="@+id/downloadButton"
+        android:textOn="" android:textOff=""/>
 
 </RelativeLayout>

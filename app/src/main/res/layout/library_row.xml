@@ -14,18 +14,34 @@
         android:layout_height="wrap_content"
         android:background="@drawable/card_background_selector"
         android:descendantFocusability="afterDescendants"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:paddingBottom="15dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:paddingTop="15dp">
+        android:paddingTop="15dp"
+        android:weightSum="1.0">
 
         <TextView
             android:id="@+id/songInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:layout_weight="0.95"
+            />
+
+        <ToggleButton
+            android:id="@+id/playPauseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:gravity="right|center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_play_pause">
+        </ToggleButton>
+
+
     </LinearLayout>
 </FrameLayout>
 

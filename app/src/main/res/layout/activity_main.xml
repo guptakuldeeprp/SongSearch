@@ -1,77 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app2="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.kuldeepgupta.songsearch.MainActivity">
+    android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/detail_backdrop_height"
+        app:elevation="8dp">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            android:background="@color/lg_blue"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/lg_blue"
+                app:layout_collapseMode="pin"
+
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        android:paddingTop="24dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-        <LinearLayout
-            android:id="@+id/song_wraper"
-            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/toolbar"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:weightSum="1.0">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <EditText
-                android:id="@+id/song"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:layout_weight="0.8"
-                android:hint="@string/search_hint" />
 
-            <Button
-                style="@style/Theme.AppCompat.Light"
-                android:id="@+id/search_button"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:minEms="6"
-                android:layout_weight="0.2"
-                android:elevation="8dp"
-                android:translationZ="8dp"
-                android:text="@string/search" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/song_wraper"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/toolbar"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="1.0">
+
+                <EditText
+                    android:id="@+id/song"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:layout_weight="0.8"
+                    android:hint="@string/search_hint" />
+
+                <Button
+                    android:id="@+id/search_button"
+                    style="@style/Theme.AppCompat.Light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:layout_weight="0.2"
+                    android:elevation="8dp"
+                    android:minEms="6"
+                    android:text="@string/search"
+                    android:contentDescription="@string/search"
+                    android:translationZ="8dp" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
 
         <ListView
             android:id="@+id/downloadListView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/song_wraper"
             android:focusable="false"></ListView>
 
-        <TextView
-            android:id="@android:id/empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="#FFFFFF"
-            android:text="No song found" />
     </LinearLayout>
 
 
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

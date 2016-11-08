@@ -3,5 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="lg_blue">#E1ECF4</color>
     <drawable name="transperent_color">#00000000</drawable>
 </resources>

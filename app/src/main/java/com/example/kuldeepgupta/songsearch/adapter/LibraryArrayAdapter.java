@@ -77,7 +77,7 @@ public class LibraryArrayAdapter extends ArrayAdapter<DownloadInfo> {
                         if (playPauseButton.isChecked()) { // Checked - Pause icon visible
                             //CommonUtil.playAudio(context, info.getFilename());
                             if (lastPlayedButton != null && lastPosition != position) {
-                                System.out.println("last pos: " + lastPosition + ", position: " + position);
+                                //System.out.println("last pos: " + lastPosition + ", position: " + position);
                                 lastPlayedButton.setChecked(false);
                             }
 
@@ -89,7 +89,7 @@ public class LibraryArrayAdapter extends ArrayAdapter<DownloadInfo> {
                         }
                     } catch (IOException e) {
                         Log.e(TAG, e.getMessage(), e);
-                        CommonUtil.makeToast(context, "Could not play the media file");
+                        CommonUtil.makeToast(context, context.getString(R.string.media_play_failure));
                     }
                 }
             });

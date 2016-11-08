@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Parcelable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
     ProgressDialog dialog;
-    List<DownloadInfo> songList;
+    List<DownloadInfo> songList = new ArrayList<DownloadInfo>();
     private InterstitialAd interstitialAd;
     private Toolbar mToolbar;
     private ListView listView;
@@ -48,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+
+        CollapsingToolbarLayout collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle(getString(R.string.app_name));
         //getMenuInflater().inflate(R.menu.menu, mToolbar);
 
         if (savedInstanceState != null) {
@@ -85,26 +90,37 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                boolean searchFailed = false;
                 tracker().send(new HitBuilders.EventBuilder("SongSearch", "search")
                         .setLabel("Search")
                         .build());
                 String searchString = getSearchString();
                 if (searchString == null || searchString.trim().length() == 0) {
                     CommonUtil.makeToast(MainActivity.this, getString(R.string.empty_song));
-                    songList = null;
-                    return;
+                    songList = new ArrayList<DownloadInfo>();
+                    searchFailed = true;
+                    //return;
                 }
 
                 if (!CommonUtil.isNetworkConnected(MainActivity.this)) {
                     CommonUtil.makeToast(MainActivity.this, getString(R.string.network_unavailable));
+                    songList = new ArrayList<DownloadInfo>();
+                    searchFailed = true;
+                    //return;
                 }
 
-                if (interstitialAd.isLoaded()) {
-                    Log.i(TAG, "Interstitial ad is loaded. Will be shown");
-                    interstitialAd.show();
+                if (!searchFailed) {
+                    if (interstitialAd.isLoaded()) {
+                        Log.i(TAG, "Interstitial ad is loaded. Will be shown");
+                        interstitialAd.show();
+                    } else {
+                        Log.i(TAG, "Interstitial ad is not loaded. Will not be shown");
+                        initiateSongSearch(searchString);
+                    }
                 } else {
-                    Log.i(TAG, "Interstitial ad is not loaded. Will not be shown");
-                    initiateSongSearch(searchString);
+                    songListAdapter.clear();
+                    songListAdapter.notifyDataSetChanged();
+                    listView.setAdapter(songListAdapter);
                 }
             }
         });
@@ -113,13 +129,15 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.downloadListView);
         songListAdapter = new SongInfoArrayAdapter(MainActivity.this, R.id.downloadListView, songList);
+        //songListAdapter.notifyDataSetChanged();
         listView.setAdapter(songListAdapter);
+
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (songList != null && !songList.isEmpty()) {
+        if (songList != null) {
 
             outState.putParcelableArrayList(getString(R.string.song_list_key), (ArrayList<? extends Parcelable>) songList);
 
@@ -179,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void processFinish(List<DownloadInfo> downloadInfos) {
                 songList = downloadInfos;
+                System.out.println("songList size fetched: " + songList.size());
                 //ListView listView = (ListView) findViewById(R.id.downloadListView);
                 //listView.setEmptyView(findViewById(R.id.empty));
                 // SongInfoArrayAdapter songListAdapter = new SongInfoArrayAdapter(MainActivity.this, R.id.downloadListView, downloadInfos);

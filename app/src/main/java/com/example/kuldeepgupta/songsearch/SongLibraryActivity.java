@@ -50,8 +50,7 @@ public class SongLibraryActivity extends AppCompatActivity {
             @Override
             public void processFinish(List<DownloadInfo> downloadInfos) {
                 libList = downloadInfos;
-                //ListView listView = (ListView) findViewById(R.id.downloadListView);
-                //listView.setEmptyView(findViewById(R.id.empty));
+
                 LibraryArrayAdapter songListAdapter = new LibraryArrayAdapter(SongLibraryActivity.this, R.id.downloadListView, libList);
                 listView.setAdapter(songListAdapter);
                 progressBar.invalidate();

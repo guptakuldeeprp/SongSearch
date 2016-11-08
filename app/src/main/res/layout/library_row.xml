@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/list_vertical_margin"
-    android:paddingLeft="@dimen/list_horizontal_margin"
-    android:paddingRight="@dimen/list_horizontal_margin"
+    android:paddingStart="@dimen/list_horizontal_margin"
+    android:paddingEnd="@dimen/list_horizontal_margin"
     android:paddingTop="@dimen/list_vertical_margin">
 
     <LinearLayout
@@ -16,10 +16,11 @@
         android:descendantFocusability="afterDescendants"
         android:orientation="horizontal"
         android:paddingBottom="15dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:paddingTop="15dp"
-        android:weightSum="1.0">
+        android:weightSum="1.0"
+        android:backgroundTint="@color/lg_blue">
 
         <TextView
             android:id="@+id/songInfo"
@@ -38,7 +39,10 @@
             android:gravity="right|center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/ic_play_pause">
+            android:background="@drawable/ic_play_pause"
+            android:textColor="@color/lg_blue"
+            android:contentDescription="@string/play_pause"
+            >
         </ToggleButton>
 
 

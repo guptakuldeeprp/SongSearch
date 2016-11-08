@@ -29,7 +29,7 @@ public class SongWidget extends AppWidgetProvider {
     private RemoteViews initViews(Context context,
                                   AppWidgetManager widgetManager, int widgetId) {
 
-        System.out.println("SongWidget initViews called..");
+        //System.out.println("SongWidget initViews called..");
         RemoteViews mView = new RemoteViews(context.getPackageName(),
                 R.layout.widget_list);
         Intent intent = new Intent(context, SongWidgetService.class);
@@ -57,7 +57,7 @@ public class SongWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        System.out.println("SongWidget onUpdate called..");
+        //System.out.println("SongWidget onUpdate called..");
         for (int widgetId : appWidgetIds) {
             RemoteViews mView = initViews(context, appWidgetManager, widgetId);
             appWidgetManager.updateAppWidget(widgetId, mView);
@@ -68,10 +68,10 @@ public class SongWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        System.out.println("click event received");
+        //System.out.println("click event received");
         super.onReceive(context, intent);
         if (intent.getAction().equals(PLAY_ACTION)) {
-            System.out.println(PLAY_ACTION + " action received");
+            //System.out.println(PLAY_ACTION + " action received");
             context.startActivity(new Intent(context,SongLibraryActivity.class));
 //            String fileName = intent.getStringExtra(context.getString(R.string.song_filepath));
 //            if (fileName != null) {

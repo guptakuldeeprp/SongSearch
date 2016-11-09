@@ -14,8 +14,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:paddingBottom="@dimen/list_vertical_margin"
-        android:paddingLeft="@dimen/list_horizontal_margin"
-        android:paddingRight="@dimen/list_horizontal_margin"
+        android:paddingStart="@dimen/list_horizontal_margin"
+        android:paddingEnd="@dimen/list_horizontal_margin"
         android:drawSelectorOnTop="false"/>
 
 </LinearLayout>
